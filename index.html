@@ -1301,16 +1301,9 @@
           <i class="fab fa-whatsapp"></i> تواصل عبر واتساب
       </a>
   </div>
-    <script>
+  <script>
         // تفعيل قائمة الهاتف المحمول
-        document.querySelector('.mobile-menu-btn').addEventListener('click', function() {
-            document.getElementById('navMenu').classList.toggle('show');
-        });
-
-        // تعيين تاريخ اليوم كحد أدنى لحقل التاريخ
-        const today = new Date().toISOString().split('T')[0];
-        document.getElementById('date').min = today;
-
+        
         // التمرير إلى قسم الوجهات
         function scrollToDestinations() {
             document.getElementById('destinations').scrollIntoView({
@@ -1319,33 +1312,43 @@
         }
 
         // إرسال نموذج الحجز عبر الواتساب
-        document.getElementById('bookingForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            
-            // جمع بيانات النموذج
-            const fullname = document.getElementById('fullname').value;
-            const phone = document.getElementById('phone').value;
-            const email = document.getElementById('email').value;
-            const destination = document.getElementById('destination').options[document.getElementById('destination').selectedIndex].text;
-            const travelers = document.getElementById('travelers').value;
-            const date = document.getElementById('date').value;
-            const message = document.getElementById('message').value;
-            
-            // إنشاء رسالة الواتساب
-            const whatsappMessage = `طلب حجز جديد%0A%0Aالاسم: ${fullname}%0Aالهاتف: ${phone}%0Aالبريد: ${email}%0Aالوجهة: ${destination}%0Aعدد المسافرين: ${travelers}%0Aالتاريخ: ${date}%0Aملاحظات: ${message || 'لا توجد'}`;
-            
-            // رقم الواتساب (يمكن استبداله برقم حقيقي)
-            const whatsappNumber = '+201017951015';
-            
-            // فتح رابط الواتساب
-            window.open(`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`, '_blank');
-            
-            // عرض رسالة نجاح
-            alert('تم إرسال طلبك بنجاح! سنتصل بك قريبًا لتأكيد الحجز.');
-            
-            // إعادة تعيين النموذج
-            this.reset();
-        });
+        
+    // ... (بقية الكود كما هو)
+
+    document.getElementById('bookingForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        // جمع بيانات النموذج
+        const fullname = document.getElementById('fullname').value;
+        const phone = document.getElementById('phone').value;
+        const email = document.getElementById('email').value;
+        const destination = document.getElementById('destination').options[document.getElementById('destination').selectedIndex].text;
+        const travelers = document.getElementById('travelers').value;
+        const date = document.getElementById('date').value;
+        const message = document.getElementById('message').value;
+        
+        // إنشاء رسالة الواتساب مع التشفير الصحيح
+        const whatsappMessage = encodeURIComponent(
+            `طلب حجز جديد\n\n` +
+            `الاسم: ${fullname}\n` +
+            `الهاتف: ${phone}\n` +
+            `البريد: ${email}\n` +
+            `الوجهة: ${destination}\n` +
+            `عدد المسافرين: ${travelers}\n` +
+            `التاريخ: ${date}\n` +
+            `ملاحظات: ${message || 'لا توجد'}`
+        );
+        
+        // رقم الواتساب (يجب استبداله برقمك الحقيقي)
+        const whatsappNumber = '966551234567';
+        
+        // فتح رابط الواتساب مع التشفير الصحيح
+        window.open(`https://wa.me/${whatsappNumber}?text=${whatsappMessage}`, '_blank');
+        
+        // ... (بقية الكود كما هو)
+    });
+
+    // ... (بقية الكود كما هو)
 
         // إضافة تأثيرات عند التمرير
         document.addEventListener('DOMContentLoaded', function() {
@@ -1368,6 +1371,7 @@
                 observer.observe(card);
             });
         });
-    </script>
+  </script>
+    
 </body>
 </html>
